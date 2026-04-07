@@ -1,15 +1,13 @@
 """FastAPI blog application: web pages, API routes, and exception handlers."""
 
+from contextlib import asynccontextmanager
 from typing import Annotated
 
-from contextlib import asynccontextmanager
-
+from fastapi import Depends, FastAPI, HTTPException, Request, status
 from fastapi.exception_handlers import (
     http_exception_handler,
     request_validation_exception_handler,
 )
-
-from fastapi import Depends, FastAPI, HTTPException, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -106,6 +104,33 @@ async def user_posts_page(
         request,
         "user_posts.html",
         {"posts": posts, "user": user, "title": f"{user.username}'s Posts"},
+    )
+
+
+@app.get("/login", include_in_schema=False)
+async def login_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "login.html",
+        {"title": "Login"},
+    )
+
+
+@app.get("/register", include_in_schema=False)
+async def register_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "register.html",
+        {"title": "Register"},
+    )
+
+
+@app.get("/account", include_in_schema=False)
+async def account_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "account.html",
+        {"title": "Account"},
     )
 
 

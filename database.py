@@ -1,6 +1,7 @@
 """Database engine, session factory, and base class for SQLAlchemy models."""
 
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
+                                    create_async_engine)
 from sqlalchemy.orm import DeclarativeBase
 
 SQLALCHEMY_DATABASE_URL = "sqlite+aiosqlite:///./blog.db"
